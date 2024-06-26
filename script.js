@@ -141,7 +141,12 @@ document.addEventListener('DOMContentLoaded', () => {
             title: "StUdLy CaPs",
             description: "Randomly alternates between uppercase and lowercase for each character.",
             example: "sTuDlY cApS"
-        }
+        },
+        capitalized: {
+            title: "Capitalized Case",
+            description: "Capitalizes the first letter of the first word in each sentence.",
+            example: "This is capitalized case. Each sentence starts with a capital letter."
+        },
     };
 
     // Core conversion function
@@ -192,6 +197,7 @@ document.addEventListener('DOMContentLoaded', () => {
             case 'inverse': return text.split('').map(c => c === c.toUpperCase() ? c.toLowerCase() : c.toUpperCase()).join('');
             case 'sarcasm': return text.split('').map((c, i) => i % 2 ? c.toLowerCase() : c.toUpperCase()).join('');
             case 'studly': return text.split('').map(c => Math.random() > 0.5 ? c.toUpperCase() : c.toLowerCase()).join('');
+            case 'capitalized': return text.replace(/(^\s*|[.!?]\s*)([\w])/gm, (match, p1, p2) => p1 + p2.toUpperCase());
             default: return text;
         }
     }
