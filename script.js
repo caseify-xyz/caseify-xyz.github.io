@@ -213,19 +213,6 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
     }
 
-    function showContactPage() {
-        mainContent.innerHTML = `
-            <h1>Contact Us</h1>
-            <p>We'd love to hear from you! If you have any questions, suggestions, or feedback, please don't hesitate to get in touch with us using the form below:</p>
-            <form class="contact-form">
-                <input type="text" placeholder="Your Name" required>
-                <input type="email" placeholder="Your Email" required>
-                <textarea placeholder="Your Message" rows="5" required></textarea>
-                <button type="submit">Send Message</button>
-            </form>
-        `;
-    }
-
     homeLink.addEventListener('click', (e) => {
         e.preventDefault();
         showHomePage();
@@ -234,11 +221,6 @@ document.addEventListener('DOMContentLoaded', () => {
     aboutLink.addEventListener('click', (e) => {
         e.preventDefault();
         showAboutPage();
-    });
-
-    contactLink.addEventListener('click', (e) => {
-        e.preventDefault();
-        showContactPage();
     });
 
     // Initialize the converter on page load
