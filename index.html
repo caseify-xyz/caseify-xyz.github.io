@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Caseify: A free, secure, and fast text case converter. Transform your text instantly without storing any data.">
+    <title>Caseify - Text Case Converter</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">&#9654; CASEIFY</div>
+            <ul>
+                <li><a href="#converterContent" id="homeLink">Home</a></li>
+                <li><a href="#about" id="aboutLink">About</a></li>
+                <li><a href="#contact" id="contactLink">Contact</a></li>
+                <button id="darkModeToggle" class="theme-toggle" aria-label="Toggle dark mode">
+                    <i class="fas fa-sun"></i>
+                    <i class="fas fa-moon"></i>
+                  </button>
+            </ul>
+        </nav>
+    </header>
+
+    <main id="mainContent">
+        <div id="converterContent">
+            <h1>Privacy-Focused Text Case Converter</h1>
+            <p>Transform your text instantly with our free, secure, and lightning-fast case converter. No data stored, no servers involved - just pure text magic right in your browser!</p>
+            <div class="converter-container">
+                <div class="input-container">
+                    <label for="inputText">Input:</label>
+                    <textarea id="inputText" placeholder="Enter your text here..."></textarea>
+                </div>
+                <div class="options-container">
+                    <label for="caseSelect">Select Case:</label>
+                    <select id="caseSelect">
+                        <option value="sentence">Sentence case</option>
+                        <option value="lower">lowercase</option>
+                        <option value="upper">UPPERCASE</option>
+                        <option value="capitalized">Capitalized Case</option>
+                        <option value="title">Title Case</option>
+                        <option value="alternating">aLtErNaTiNg CaSe</option>
+                        <option value="inverse">InVeRsE cAsE</option>
+                    </select>
+                </div>
+                <div class="output-container">
+                    <label for="outputText">Output:</label>
+                    <textarea id="outputText" readonly></textarea>
+                </div>
+            </div>
+            <div id="caseDescription"></div>
+            <div class="action-buttons">
+                <button id="copyBtn">Copy to Clipboard</button>
+                <button id="downloadBtn">Download Text</button>
+            </div>
+            <div class="text-stats">
+                <div class="stat-item">
+                    <span class="stat-label">Words:</span>
+                    <span id="wordCount" class="stat-value">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Characters:</span>
+                    <span id="charCount" class="stat-value">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Sentences:</span>
+                    <span id="sentenceCount" class="stat-value">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Lines:</span>
+                    <span id="lineCount" class="stat-value">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Paragraphs:</span>
+                    <span id="paragraphCount" class="stat-value">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Read Time:</span>
+                    <span id="readTime" class="stat-value">0 sec</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <hr class="section-divider">
+
+    <section id="about" class="blurb">
+        <h2>🚀 Welcome to Caseify: The Text Transformer That's Out of This World... And Your Data Stays on Earth! 🌍</h2>
+        <p>Tired of boring, same-case text and sneaky data snatchers? Say hello to Caseify, where your words get a makeover, and your privacy gets a fortress!</p>
+        <h3>✨ Main Features:</h3>
+        <ul>
+            <li>7 groovy text transformations</li>
+            <li>Client-side magic (your text never leaves your device - it's like a Vegas vault!)</li>
+            <li>Forever free (no hidden fees, no surprise bills - we're not your cable company!)</li>
+            <li>Real-time conversion (faster than you can say "AI who?")</li>
+            <li>Copy & download your masterpiece</li>
+            <li>Word, character, sentence, and line counts (for the number nerds in us all)</li>
+        </ul>
+        <div class="privacy-box">
+            <h3>🛡️ Fort Knox-level Privacy:</h3>
+            <p>Unlike those shifty AI wrappers that might be eyeing your data like a cat eyes a tuna sandwich, Caseify keeps your words safer than a secret recipe in a locked diary. It's all happening right here in your browser - no servers, no storage, no shenanigans!</p>
+        </div>
+        <p>Whether you're crafting top-secret memos, writing the next great novel, or just want to SHOUT YOUR LOVE FOR PIZZA, Caseify's got your back (and your front, and your sides).</p>
+        <p class="remember">Remember: In a world of data-hungry apps, be a Caseify champion! Where your text is rad, and your privacy is totally bodacious! 😎</p>
+        <p class="hashtags">#TextTransformationStation #PrivacyIsRadical #CaseClosedWithCaseify #RetroTextRevolution</p>
+    </section>
+
+    <hr class="section-divider">
+
+    <footer>
+        <p>&copy; 2024 Caseify. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

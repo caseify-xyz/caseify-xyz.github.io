@@ -1,0 +1,234 @@
+document.addEventListener('DOMContentLoaded', () => {
+    const mainContent = document.getElementById('mainContent');
+    const converterContent = document.getElementById('converterContent');
+    const homeLink = document.getElementById('homeLink');
+    const aboutLink = document.getElementById('aboutLink');
+    const contactLink = document.getElementById('contactLink');
+
+    // Dark mode toggle
+    const darkModeToggle = document.getElementById('darkModeToggle');
+
+    document.addEventListener('keydown', function(event) {
+        // Ctrl+C or Cmd+C to copy
+        if ((event.ctrlKey || event.metaKey) && event.key === 'c') {
+            event.preventDefault();
+            document.getElementById('copyBtn').click();
+        }
+        // Ctrl+S or Cmd+S to download
+        if ((event.ctrlKey || event.metaKey) && event.key === 's') {
+            event.preventDefault();
+            document.getElementById('downloadBtn').click();
+        }
+    });
+
+    const caseDescriptions = {
+        sentence: {
+            title: "Sentence case",
+            description: "Capitalizes the first letter of each sentence.",
+            example: "This is a sentence. This is another sentence."
+        },
+        lower: {
+            title: "Lowercase",
+            description: "Converts all letters to lowercase.",
+            example: "all letters are lowercase."
+        },
+        upper: {
+            title: "Uppercase",
+            description: "Converts all letters to uppercase.",
+            example: "ALL LETTERS ARE UPPERCASE."
+        },
+        capitalized: {
+            title: "Capitalized Case",
+            description: "Capitalizes the first letter of each word.",
+            example: "Every Word Starts With A Capital Letter"
+        },
+        title: {
+            title: "Title Case",
+            description: "Capitalizes the first letter of each word, except for certain small words.",
+            example: "This Is a Title Case Example"
+        },
+        alternating: {
+            title: "Alternating Case",
+            description: "Alternates between lowercase and uppercase for each character.",
+            example: "aLtErNaTiNg CaSe ExAmPlE"
+        },
+        inverse: {
+            title: "Inverse Case",
+            description: "Inverts the case of each character.",
+            example: "iNVERSE cASE eXAMPLE"
+        }
+    };
+
+    // Function to toggle dark mode
+    function toggleDarkMode() {
+        document.body.classList.toggle('dark-mode');
+        localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+        
+        // Update the icon
+        const sunIcon = darkModeToggle.querySelector('.fa-sun');
+        const moonIcon = darkModeToggle.querySelector('.fa-moon');
+        
+        if (document.body.classList.contains('dark-mode')) {
+            sunIcon.style.opacity = '0';
+            moonIcon.style.opacity = '1';
+        } else {
+            sunIcon.style.opacity = '1';
+            moonIcon.style.opacity = '0';
+        }
+    }
+
+    // Event listener for dark mode toggle
+    darkModeToggle.addEventListener('click', toggleDarkMode);
+
+    // Check for saved dark mode preference
+    if (localStorage.getItem('darkMode') === 'true') {
+        document.body.classList.add('dark-mode');
+    }
+
+
+    function initializeConverter() {
+        const inputText = document.getElementById('inputText');
+        const outputText = document.getElementById('outputText');
+        const caseSelect = document.getElementById('caseSelect');
+        const wordCount = document.getElementById('wordCount');
+        const charCount = document.getElementById('charCount');
+        const sentenceCount = document.getElementById('sentenceCount');
+        const lineCount = document.getElementById('lineCount');
+        const copyBtn = document.getElementById('copyBtn');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const caseDescription = document.getElementById('caseDescription');
+
+        function updateTextStats(text) {
+            // Word count: Split by whitespace, filter out empty strings
+            const words = text.trim().split(/\s+/).filter(word => word.length > 0);
+            document.getElementById('wordCount').textContent = words.length;
+        
+            // Character count (including whitespace)
+            document.getElementById('charCount').textContent = text.length;
+        
+            // Sentence count: Match sentence-ending punctuation, but handle edge cases
+            const sentences = text.match(/[.!?]+(?=\s+|$)/g) || [];
+            document.getElementById('sentenceCount').textContent = sentences.length;
+        
+            // Line count: Split by newline, filter out empty lines
+            const lines = text.split('\n').filter(line => line.trim().length > 0);
+            document.getElementById('lineCount').textContent = lines.length;
+        
+            // Paragraph count: Split by multiple newlines
+            const paragraphs = text.split(/\n\s*\n/).filter(para => para.trim().length > 0);
+            document.getElementById('paragraphCount').textContent = paragraphs.length;
+        
+            // Read time: Assuming 200 words per minute
+            const readTimeMinutes = Math.ceil(words.length / 200);
+            document.getElementById('readTime').textContent = `${readTimeMinutes} min`;
+        }
+
+        function convertCase(text, selectedCase) {
+            switch (selectedCase) {
+                case 'sentence':
+                    return text.toLowerCase().replace(/(^\s*\w|[.!?]\s*\w)/g, c => c.toUpperCase());
+                case 'lower':
+                    return text.toLowerCase();
+                case 'upper':
+                    return text.toUpperCase();
+                case 'capitalized':
+                    return text.toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
+                case 'title':
+                    return text.toLowerCase().replace(/\b\w+/g, function(word) {
+                        const lowercaseWords = ['a', 'an', 'the', 'and', 'but', 'or', 'for', 'nor', 'on', 'at', 'to', 'from', 'by', 'in', 'of'];
+                        return lowercaseWords.includes(word) ? word : word.charAt(0).toUpperCase() + word.slice(1);
+                    });
+                case 'alternating':
+                    return text.split('').map((c, i) => i % 2 === 0 ? c.toLowerCase() : c.toUpperCase()).join('');
+                case 'inverse':
+                    return text.split('').map(c => c === c.toUpperCase() ? c.toLowerCase() : c.toUpperCase()).join('');
+                default:
+                    return text;
+            }
+        }
+
+        function updateOutput() {
+            const text = inputText.value;
+            const selectedCase = caseSelect.value;
+            outputText.value = convertCase(text, selectedCase);
+            updateTextStats(text);
+            updateCaseDescription(selectedCase);
+        }
+
+        function updateCaseDescription(selectedCase) {
+            const description = caseDescriptions[selectedCase];
+            caseDescription.innerHTML = `
+                <h4>${description.title}</h4>
+                <p>${description.description}</p>
+                <p><em>Example: ${description.example}</em></p>
+            `;
+        }
+
+        inputText.addEventListener('input', updateOutput);
+        caseSelect.addEventListener('change', updateOutput);
+
+        copyBtn.addEventListener('click', () => {
+            outputText.select();
+            document.execCommand('copy');
+            alert('Text copied to clipboard!');
+        });
+
+        downloadBtn.addEventListener('click', () => {
+            const blob = new Blob([outputText.value], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'converted_text.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        });
+
+        updateOutput();
+    }
+
+    function showHomePage() {
+        mainContent.innerHTML = converterContent.innerHTML;
+        initializeConverter();
+    }
+
+    function showAboutPage() {
+        mainContent.innerHTML = `
+            <h1>About Caseify</h1>
+            <p>Caseify is a powerful text case converter tool designed to help you quickly and easily transform your text into various cases. Whether you need to convert text to uppercase, lowercase, title case, or any other format, Caseify has got you covered.</p>
+            <p>Our user-friendly interface and real-time conversion make it simple for anyone to use, from students and writers to professionals and developers. With additional features like word count, character count, and the ability to download your converted text, Caseify is the perfect tool for all your text transformation needs.</p>
+        `;
+    }
+
+    function showContactPage() {
+        mainContent.innerHTML = `
+            <h1>Contact Us</h1>
+            <p>We'd love to hear from you! If you have any questions, suggestions, or feedback, please don't hesitate to get in touch with us using the form below:</p>
+            <form class="contact-form">
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <textarea placeholder="Your Message" rows="5" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+        `;
+    }
+
+    homeLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        showHomePage();
+    });
+
+    aboutLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        showAboutPage();
+    });
+
+    contactLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        showContactPage();
+    });
+
+    // Initialize the converter on page load
+    initializeConverter();
+});
