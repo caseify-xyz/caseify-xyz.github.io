@@ -26,36 +26,87 @@ document.addEventListener('DOMContentLoaded', () => {
             example: "This is a sentence. This is another sentence."
         },
         lower: {
-            title: "Lowercase",
+            title: "lowercase",
             description: "Converts all letters to lowercase.",
             example: "all letters are lowercase."
         },
         upper: {
-            title: "Uppercase",
+            title: "UPPERCASE",
             description: "Converts all letters to uppercase.",
             example: "ALL LETTERS ARE UPPERCASE."
-        },
-        capitalized: {
-            title: "Capitalized Case",
-            description: "Capitalizes the first letter of each word.",
-            example: "Every Word Starts With A Capital Letter"
         },
         title: {
             title: "Title Case",
             description: "Capitalizes the first letter of each word, except for certain small words.",
             example: "This Is a Title Case Example"
         },
+        camel: {
+            title: "camelCase",
+            description: "Removes spaces and capitalizes the first letter of each word except the first one.",
+            example: "thisIsCamelCase"
+        },
+        pascal: {
+            title: "PascalCase",
+            description: "Removes spaces and capitalizes the first letter of each word.",
+            example: "ThisIsPascalCase"
+        },
+        snake: {
+            title: "snake_case",
+            description: "Replaces spaces with underscores and converts all letters to lowercase.",
+            example: "this_is_snake_case"
+        },
+        kebab: {
+            title: "kebab-case",
+            description: "Replaces spaces with hyphens and converts all letters to lowercase.",
+            example: "this-is-kebab-case"
+        },
+        constant: {
+            title: "CONSTANT_CASE",
+            description: "Replaces spaces with underscores and converts all letters to uppercase.",
+            example: "THIS_IS_CONSTANT_CASE"
+        },
         alternating: {
-            title: "Alternating Case",
+            title: "aLtErNaTiNg CaSe",
             description: "Alternates between lowercase and uppercase for each character.",
             example: "aLtErNaTiNg CaSe ExAmPlE"
         },
         inverse: {
-            title: "Inverse Case",
+            title: "InVeRsE cAsE",
             description: "Inverts the case of each character.",
             example: "iNVERSE cASE eXAMPLE"
+        },
+        dot: {
+            title: "dot.case",
+            description: "Replaces spaces with dots and converts all letters to lowercase.",
+            example: "this.is.dot.case"
+        },
+        path: {
+            title: "path/case",
+            description: "Replaces spaces with forward slashes and converts all letters to lowercase.",
+            example: "this/is/path/case"
+        },
+        capitalized: {
+            title: "Capitalized Case",
+            description: "Capitalizes the first letter of each word.",
+            example: "Every Word Starts With A Capital Letter"
+        },
+        train: {
+            title: "Train-Case",
+            description: "Capitalizes the first letter of each word and separates words with hyphens.",
+            example: "This-Is-Train-Case"
+        },
+        sarcasm: {
+            title: "SaRcAsM cAsE",
+            description: "Alternates between uppercase and lowercase, starting with uppercase.",
+            example: "ThIs Is SaRcAsM cAsE"
+        },
+        studly: {
+            title: "sTuDlY cApS",
+            description: "Randomly alternates between uppercase and lowercase for each character.",
+            example: "sTuDlY cApS eXaMpLe"
         }
     };
+    
 
     // Function to toggle dark mode
     function toggleDarkMode() {
@@ -135,29 +186,89 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('readTime').textContent = `${readTimeMinutes} min`;
         }
 
-        function convertCase(text, selectedCase) {
-            switch (selectedCase) {
-                case 'sentence':
-                    return text.toLowerCase().replace(/(^\s*\w|[.!?]\s*\w)/g, c => c.toUpperCase());
-                case 'lower':
-                    return text.toLowerCase();
-                case 'upper':
-                    return text.toUpperCase();
-                case 'capitalized':
-                    return text.toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
-                case 'title':
-                    return text.toLowerCase().replace(/\b\w+/g, function(word) {
-                        const lowercaseWords = ['a', 'an', 'the', 'and', 'but', 'or', 'for', 'nor', 'on', 'at', 'to', 'from', 'by', 'in', 'of'];
-                        return lowercaseWords.includes(word) ? word : word.charAt(0).toUpperCase() + word.slice(1);
-                    });
-                case 'alternating':
-                    return text.split('').map((c, i) => i % 2 === 0 ? c.toLowerCase() : c.toUpperCase()).join('');
-                case 'inverse':
-                    return text.split('').map(c => c === c.toUpperCase() ? c.toLowerCase() : c.toUpperCase()).join('');
-                default:
-                    return text;
+        function convertCase(text, targetCase) {
+            // Handle null, undefined, or empty input
+            if (!text) return '';
+          
+            // Convert input to string if it's not already
+            text = String(text);
+          
+            // Trim leading and trailing whitespace
+            text = text.trim();
+          
+            // Function to split text into words, handling multiple spaces and punctuation
+            const getWords = (str) => str.match(/[A-Za-z0-9]+/g) || [];
+          
+            switch (targetCase) {
+              case 'camel':
+                return getWords(text).map((word, index) => 
+                  index === 0 ? word.toLowerCase() : word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+                ).join('');
+              
+              case 'pascal':
+                return getWords(text).map(word => 
+                  word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+                ).join('');
+              
+              case 'snake':
+                return getWords(text).join('_').toLowerCase();
+              
+              case 'kebab':
+                return getWords(text).join('-').toLowerCase();
+              
+              case 'title':
+                return getWords(text).map(word => 
+                  word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+                ).join(' ');
+              
+              case 'sentence':
+                return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+              
+              case 'lower':
+                return text.toLowerCase();
+              
+              case 'upper':
+                return text.toUpperCase();
+              
+              case 'constant':
+                return getWords(text).join('_').toUpperCase();
+              
+              case 'dot':
+                return getWords(text).join('.').toLowerCase();
+              
+              case 'path':
+                return getWords(text).join('/').toLowerCase();
+              
+              case 'train':
+                return getWords(text).map(word => 
+                  word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+                ).join('-');
+              
+              case 'alternating':
+                return text.split('').map((char, index) => 
+                  index % 2 === 0 ? char.toLowerCase() : char.toUpperCase()
+                ).join('');
+              
+              case 'inverse':
+                return text.split('').map(char => 
+                  char === char.toUpperCase() ? char.toLowerCase() : char.toUpperCase()
+                ).join('');
+              
+              case 'sarcasm':
+                return text.split('').map((char, index) => 
+                  index % 2 === 0 ? char.toUpperCase() : char.toLowerCase()
+                ).join('');
+              
+              case 'studly':
+                return text.split('').map(char => 
+                  Math.random() > 0.5 ? char.toUpperCase() : char.toLowerCase()
+                ).join('');
+              
+              default:
+                return text; // Return original text if case not recognized
             }
-        }
+        }        
+          
 
         function updateOutput() {
             const text = inputText.value;

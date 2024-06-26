@@ -45,13 +45,31 @@
                 <div class="options-container">
                     <label for="caseSelect">Select Case:</label>
                     <select id="caseSelect">
-                        <option value="lower">lowercase</option>
-                        <option value="upper">UPPERCASE</option>
-                        <option value="sentence">Sentence case</option>
-                        <option value="capitalized">Capitalized Case</option>
-                        <option value="title">Title Case</option>
-                        <option value="alternating">aLtErNaTiNg CaSe</option>
-                        <option value="inverse">InVeRsE cAsE</option>
+                        <optgroup label="Common Cases">
+                            <option value="sentence">Sentence case</option>
+                            <option value="lower">lowercase</option>
+                            <option value="upper">UPPERCASE</option>
+                            <option value="title">Title Case</option>
+                        </optgroup>
+                        <optgroup label="Programming Cases">
+                            <option value="camel">camelCase</option>
+                            <option value="pascal">PascalCase</option>
+                            <option value="snake">snake_case</option>
+                            <option value="kebab">kebab-case</option>
+                            <option value="constant">CONSTANT_CASE</option>
+                        </optgroup>
+                        <optgroup label="Specialized Cases">
+                            <option value="alternating">aLtErNaTiNg CaSe</option>
+                            <option value="inverse">InVeRsE cAsE</option>
+                            <option value="dot">dot.case</option>
+                            <option value="path">path/case</option>
+                        </optgroup>
+                        <optgroup label="Stylistic Cases">
+                            <option value="capitalized">Capitalized Case</option>
+                            <option value="train">Train-Case</option>
+                            <option value="sarcasm">SaRcAsM cAsE</option>
+                            <option value="studly">sTuDlY cApS</option>
+                        </optgroup>
                     </select>
                 </div>
                 <div class="output-container">
