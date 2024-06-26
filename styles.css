@@ -46,13 +46,21 @@ nav {
     color: var(--secondary-color);
 }
 
+.nav-links {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
 nav ul {
     display: flex;
     list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
 nav ul li {
-    margin-left: 1rem;
+    margin: 0 1rem;
 }
 
 nav ul li a {
@@ -197,43 +205,18 @@ footer {
     margin-top: 2rem;
 }
 
-@media (min-width: 768px) {
-    .converter-container {
-        flex-direction: row;
-    }
-
-    .input-container, .output-container {
-        flex: 1;
-    }
-
-    .options-container {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        padding: 0 1rem;
-    }
-}
-
 .blurb {
     background-color: var(--secondary-color);
     border: 4px solid var(--border-color);
     border-radius: 8px;
     padding: 2rem;
-    margin: 2rem auto; /* Centers the blurb */
+    margin: 2rem auto;
     box-shadow: 4px 4px 0 var(--border-color);
     color: var(--primary-color);
-    max-width: 800px; /* Limits the width on larger screens */
-    width: 90%; /* Takes up 90% of the container width on smaller screens */
+    max-width: 800px;
+    width: 90%;
 }
 
-@media (max-width: 600px) {
-    .blurb {
-        padding: 1.5rem;
-        width: 95%; /* Slightly wider on very small screens */
-    }
-}
-
-/* Rest of the blurb styles remain the same */
 .blurb h2 {
     font-size: 1.5rem;
     margin-bottom: 1rem;
@@ -266,9 +249,6 @@ footer {
     color: var(--border-color);
 }
 
-
-/* Dark Mode */
-
 .theme-toggle {
     background-color: transparent;
     border: none;
@@ -280,9 +260,9 @@ footer {
     border-radius: 15px;
     background-color: #333;
     transition: background-color 0.3s ease;
-  }
-  
-  .theme-toggle::before {
+}
+
+.theme-toggle::before {
     content: '';
     position: absolute;
     left: 2px;
@@ -292,42 +272,91 @@ footer {
     border-radius: 50%;
     background-color: #fff;
     transition: transform 0.3s ease;
-  }
-  
-  .theme-toggle .fa-sun,
-  .theme-toggle .fa-moon {
+}
+
+.theme-toggle .fa-sun,
+.theme-toggle .fa-moon {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
     font-size: 16px;
     transition: opacity 0.3s ease;
-  }
-  
-  .theme-toggle .fa-sun {
+}
+
+.theme-toggle .fa-sun {
     left: 6px;
     color: #f39c12;
     opacity: 1;
-  }
-  
-  .theme-toggle .fa-moon {
+}
+
+.theme-toggle .fa-moon {
     right: 6px;
     color: #f1c40f;
     opacity: 0;
-  }
-  
-  body.dark-mode .theme-toggle {
+}
+
+body.dark-mode .theme-toggle {
     background-color: #f0f0f0;
-  }
-  
-  body.dark-mode .theme-toggle::before {
+}
+
+body.dark-mode .theme-toggle::before {
     transform: translateX(20px);
-  }
-  
-  body.dark-mode .theme-toggle .fa-sun {
+}
+
+body.dark-mode .theme-toggle .fa-sun {
     opacity: 0;
-  }
-  
-  body.dark-mode .theme-toggle .fa-moon {
+}
+
+body.dark-mode .theme-toggle .fa-moon {
     opacity: 1;
-  }
-  
+}
+
+@media (min-width: 768px) {
+    .converter-container {
+        flex-direction: row;
+    }
+
+    .input-container, .output-container {
+        flex: 1;
+    }
+
+    .options-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 0 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nav-links {
+        position: static;
+        transform: none;
+        margin-top: 1rem;
+    }
+
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav ul li {
+        margin: 0.5rem 0;
+    }
+
+    .theme-toggle {
+        margin-top: 1rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .blurb {
+        padding: 1.5rem;
+        width: 95%;
+    }
+}

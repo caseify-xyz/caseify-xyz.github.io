@@ -4,8 +4,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const homeLink = document.getElementById('homeLink');
     const aboutLink = document.getElementById('aboutLink');
     const contactLink = document.getElementById('contactLink');
-
-    // Dark mode toggle
     const darkModeToggle = document.getElementById('darkModeToggle');
 
     document.addEventListener('keydown', function(event) {
@@ -62,13 +60,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // Function to toggle dark mode
     function toggleDarkMode() {
         document.body.classList.toggle('dark-mode');
-        localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+        const isDarkMode = document.body.classList.contains('dark-mode');
+        localStorage.setItem('darkMode', isDarkMode);
         
         // Update the icon
         const sunIcon = darkModeToggle.querySelector('.fa-sun');
         const moonIcon = darkModeToggle.querySelector('.fa-moon');
         
-        if (document.body.classList.contains('dark-mode')) {
+        if (isDarkMode) {
             sunIcon.style.opacity = '0';
             moonIcon.style.opacity = '1';
         } else {
@@ -80,11 +79,24 @@ document.addEventListener('DOMContentLoaded', () => {
     // Event listener for dark mode toggle
     darkModeToggle.addEventListener('click', toggleDarkMode);
 
-    // Check for saved dark mode preference
-    if (localStorage.getItem('darkMode') === 'true') {
+    // Check for saved dark mode preference, default to light mode if not set
+    const savedDarkMode = localStorage.getItem('darkMode');
+    if (savedDarkMode === 'true') {
         document.body.classList.add('dark-mode');
+    } else {
+        document.body.classList.remove('dark-mode');
     }
 
+    // Set initial icon state
+    const sunIcon = darkModeToggle.querySelector('.fa-sun');
+    const moonIcon = darkModeToggle.querySelector('.fa-moon');
+    if (document.body.classList.contains('dark-mode')) {
+        sunIcon.style.opacity = '0';
+        moonIcon.style.opacity = '1';
+    } else {
+        sunIcon.style.opacity = '1';
+        moonIcon.style.opacity = '0';
+    }
 
     function initializeConverter() {
         const inputText = document.getElementById('inputText');
