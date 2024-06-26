@@ -208,8 +208,32 @@ document.addEventListener('DOMContentLoaded', () => {
     function showAboutPage() {
         mainContent.innerHTML = `
             <h1>About Caseify</h1>
-            <p>Caseify is a powerful text case converter tool designed to help you quickly and easily transform your text into various cases. Whether you need to convert text to uppercase, lowercase, title case, or any other format, Caseify has got you covered.</p>
-            <p>Our user-friendly interface and real-time conversion make it simple for anyone to use, from students and writers to professionals and developers. With additional features like word count, character count, and the ability to download your converted text, Caseify is the perfect tool for all your text transformation needs.</p>
+            <section id="about" class="blurb">
+    
+    <h3>🎯 Our Mission</h3>
+    <p>At Caseify, we believe in empowering users with simple, effective tools that respect their privacy. Our mission is to provide a seamless text transformation experience without compromising your data security.</p>
+
+    <h3>💡 The Caseify Difference</h3>
+    <ul>
+        <li>Built with pure JavaScript for lightning-fast performance</li>
+        <li>No external dependencies or API calls - everything happens in your browser</li>
+        <li>Designed with accessibility in mind - usable by everyone</li>
+        <li>Regularly updated with new features based on user feedback</li>
+    </ul>
+
+    <h3>👥 Who We Are</h3>
+    <p>Caseify was created by a team of passionate developers who believe in the power of open-source software and the importance of online privacy. We're committed to maintaining and improving Caseify as a free tool for the global community.</p>
+
+    <h3>🌱 Our Commitment</h3>
+    <p>We're dedicated to keeping Caseify:</p>
+    <ul>
+        <li>Free for everyone, always</li>
+        <li>Ad-free and tracker-free</li>
+        <li>Open to suggestions and improvements from our users</li>
+    </ul>
+
+    <p>Join us in our mission to make text transformation easy, fun, and secure for everyone!</p>
+</section>
         `;
     }
 
