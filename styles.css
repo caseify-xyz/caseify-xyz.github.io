@@ -360,3 +360,25 @@ body.dark-mode .theme-toggle .fa-moon {
         width: 95%;
     }
 }
+
+.textarea-wrapper {
+    display: flex;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.line-numbers {
+    padding: 10px 5px;
+    border-right: 1px solid #ccc;
+    background-color: #f7f7f7;
+    text-align: right;
+    font-family: monospace;
+    user-select: none;
+}
+
+#inputText, #outputText {
+    flex-grow: 1;
+    border: none;
+    padding: 10px;
+    font-family: monospace;
+}
